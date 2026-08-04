@@ -79,3 +79,71 @@ function unlockGame(num){
     }
 
 }
+function startGame(game){
+
+    if(game === 2){
+
+        document.getElementById("gameArea").innerHTML = `
+        <h2>🎀 Bow Catch Game 🎀</h2>
+        <p>10 cute bows pakdo Didi ❤️</p>
+        <div id="bowBox"></div>
+        <h3 id="bowScore">Bows: 0/10</h3>
+        `;
+
+        let score = 0;
+        let bowBox = document.getElementById("bowBox");
+
+
+        let timer = setInterval(()=>{
+
+            let bow = document.createElement("button");
+
+            bow.innerHTML="🎀";
+
+            bow.style.width="60px";
+            bow.style.height="60px";
+            bow.style.margin="5px";
+            bow.style.fontSize="30px";
+            bow.style.background="#ffb6d9";
+
+
+            bow.onclick=function(){
+
+                score++;
+
+                document.getElementById("bowScore").innerHTML =
+                "Bows: "+score+"/10";
+
+                bow.remove();
+
+
+                if(score>=10){
+
+                    clearInterval(timer);
+
+                    document.getElementById("gameArea").innerHTML=
+                    `
+                    <h2>🎀 Great Didi 🎀</h2>
+                    <p>Bow Game Complete ❤️</p>
+                    `;
+
+                    unlockGame(3);
+
+                }
+
+            };
+
+
+            bowBox.appendChild(bow);
+
+
+            setTimeout(()=>{
+                bow.remove();
+            },2500);
+
+
+        },900);
+
+    }
+
+}
