@@ -1,84 +1,81 @@
-const message = `💖 Dear Didi,
+let level = 1;
 
-Aap meri life ki sabse special didi ho ❤️
+function startGame(game){
 
-Thank you hamesha mera saath dene ke liye.
+    if(game === 1){
 
-Aaj ka mission 😎
+        document.getElementById("gameArea").innerHTML = `
+        <h2>❤️ Hearts Pakdo ❤️</h2>
+        <p>15 hearts collect karo Didi 🎀</p>
+        <div id="heartBox"></div>
+        <h3 id="score">Hearts: 0/15</h3>
+        `;
 
-👇
+        let score = 0;
 
-15 Hearts pakdo aur Surprise unlock karo!
+        let heartBox = document.getElementById("heartBox");
 
-Love You Didi 💖`;
+        let timer = setInterval(()=>{
 
-let i = 0;
+            let heart = document.createElement("button");
 
-function typeWriter() {
-  if (i < message.length) {
-    document.getElementById("typewriter").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, 40);
-  }
+            heart.innerHTML="❤️";
+
+            heart.style.width="50px";
+            heart.style.height="50px";
+            heart.style.margin="5px";
+            heart.style.fontSize="25px";
+            heart.style.background="#ff4fa0";
+
+            heart.onclick=function(){
+
+                score++;
+
+                document.getElementById("score").innerHTML=
+                "Hearts: "+score+"/15";
+
+                heart.remove();
+
+
+                if(score>=15){
+
+                    clearInterval(timer);
+
+                    document.getElementById("gameArea").innerHTML=
+                    `
+                    <h2>🎉 Congratulations Didi 🎉</h2>
+                    <p>Game 1 Complete ❤️</p>
+                    `;
+
+                    unlockGame(2);
+                }
+
+            };
+
+
+            heartBox.appendChild(heart);
+
+
+            setTimeout(()=>{
+                heart.remove();
+            },3000);
+
+
+        },800);
+
+    }
+
 }
 
-window.onload = () => {
-  typeWriter();
 
-  for (let j = 0; j < 25; j++) {
-    const h = document.createElement("div");
-    h.className = "floatHeart";
-    h.innerHTML = "💖";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (4 + Math.random() * 4) + "s";
-    document.body.appendChild(h);
-  }
-};
 
-let score = 0;
+function unlockGame(num){
 
-document.getElementById("startBtn").onclick = function () {
+    let btn=document.getElementById("game"+num);
 
-  this.style.display = "none";
-
-  document.getElementById("game").style.display = "block";
-
-  createHeart();
-
-};
-
-function createHeart() {
-
-  if (score >= 15) {
-
-    alert("🎉 Congratulations Didi! 💖\n\nYou are the World's Best Sister ❤️🥹");
-
-    return;
-
-  }
-
-  const heart = document.createElement("div");
-
-  heart.className = "heart";
-
-  heart.innerHTML = "❤️";
-
-  heart.style.left = Math.random() * 250 + "px";
-
-  heart.style.top = Math.random() * 220 + "px";
-
-  heart.onclick = function () {
-
-    score++;
-
-    document.getElementById("score").innerText = score;
-
-    heart.remove();
-
-    createHeart();
-
-  };
-
-  document.getElementById("playArea").appendChild(heart);
+    if(btn){
+        btn.disabled=false;
+        btn.innerHTML="🔓 Game "+num;
+    }
 
 }
