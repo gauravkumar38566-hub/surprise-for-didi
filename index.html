@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Surprise For My Didi 💖</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+background:linear-gradient(135deg,#ff4fa0,#ffb6d9,#ffd6ec,#ffeef7);
+}
+
+.card{
+width:90%;
+max-width:420px;
+background:white;
+border-radius:20px;
+padding:25px;
+text-align:center;
+box-shadow:0 0 25px rgba(0,0,0,.3);
+animation:pop .8s ease;
+z-index:5;
+}
+
+h1{
+color:#ff1493;
+margin-bottom:15px;
+}
+
+#msg{
+font-size:18px;
+line-height:1.7;
+color:#444;
+min-height:150px;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+margin-top:20px;
+border:none;
+border-radius:40px;
+background:#ff1493;
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+@keyframes pop{
+from{
+transform:scale(.4);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.heart{
+position:absolute;
+font-size:25px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+100%{
+transform:translateY(-120vh);
+opacity:1;
+}
+}
+
+#game{
+display:none;
+margin-top:20px;
+}
+
+#score{
+font-size:22px;
+margin-bottom:15px;
+}
+
+.ball{
+width:50px;
+height:50px;
+background:red;
+border-radius:50%;
+position:absolute;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>💖 Dear Didi 💖</h1>
+
+<p id="msg"></p>
+
+<button onclick="startGame()">🎁 Open Surprise</button>
+
+<div id="game">
+
+<h2>❤️ Catch The Hearts ❤️</h2>
+
+<div id="score">
+Score : <span id="points">0</span>
+</div>
+
+</div>
+
+</div><script>
+const text = `💖 Dear Didi,
+
+Aap meri life ki sabse special didi ho ❤️
+
+Thank you hamesha mera saath dene ke liye.
+
+Ab ek chhota sa game khelo 😄
+
+Love You Didi 💖`;
+
+let i = 0;
+
+function typing() {
+    if (i < text.length) {
+        document.getElementById("msg").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 50);
+    }
+}
+
+typing();
+
+for (let j = 0; j < 30; j++) {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "💖";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (3 + Math.random() * 4) + "s";
+    document.body.appendChild(h);
+}
+
+let score = 0;
+
+function startGame() {
+    document.getElementById("game").style.display = "block";
+
+    for (let k = 0; k < 15; k++) {
+        let b = document.createElement("div");
+        b.className = "ball";
+        b.innerHTML = "❤️";
+        b.style.left = Math.random() * (window.innerWidth - 60) + "px";
+        b.style.top = Math.random() * (window.innerHeight - 60) + "px";
+
+        b.onclick = function () {
+            score++;
+            document.getElementById("points").innerText = score;
+            b.remove();
+
+            if (score == 15) {
+                setTimeout(() => {
+                    alert("🎉 Congratulations Didi! 🎉\n\nYou are the World's Best Sister ❤️🥹");
+                }, 300);
+            }
+        };
+
+        document.body.appendChild(b);
+    }
+}
+</script>
+
+</body>
+</html>
