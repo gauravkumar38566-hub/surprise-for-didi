@@ -1,5 +1,3 @@
-let level = 1;
-
 function startGame(game){
 
     if(game === 1){
@@ -12,8 +10,7 @@ function startGame(game){
         `;
 
         let score = 0;
-
-        let heartBox = document.getElementById("heartBox");
+        let box = document.getElementById("heartBox");
 
         let timer = setInterval(()=>{
 
@@ -21,77 +18,46 @@ function startGame(game){
 
             heart.innerHTML="❤️";
 
-            heart.style.width="50px";
-            heart.style.height="50px";
-            heart.style.margin="5px";
-            heart.style.fontSize="25px";
-            heart.style.background="#ff4fa0";
-
             heart.onclick=function(){
 
                 score++;
 
-                document.getElementById("score").innerHTML=
+                document.getElementById("score").innerHTML =
                 "Hearts: "+score+"/15";
 
                 heart.remove();
-
 
                 if(score>=15){
 
                     clearInterval(timer);
 
                     document.getElementById("gameArea").innerHTML=
-                    `
-                    <h2>🎉 Congratulations Didi 🎉</h2>
-                    <p>Game 1 Complete ❤️</p>
-                    `;
+                    "🎉 Game 1 Complete ❤️";
 
                     unlockGame(2);
                 }
-
             };
 
-
-            heartBox.appendChild(heart);
-
-
-            setTimeout(()=>{
-                heart.remove();
-            },3000);
-
+            box.appendChild(heart);
 
         },800);
 
     }
 
-}
 
-
-
-function unlockGame(num){
-
-    let btn=document.getElementById("game"+num);
-
-    if(btn){
-        btn.disabled=false;
-        btn.innerHTML="🔓 Game "+num;
-    }
-
-}
-function startGame(game){
 
     if(game === 2){
 
         document.getElementById("gameArea").innerHTML = `
         <h2>🎀 Bow Catch Game 🎀</h2>
-        <p>10 cute bows pakdo Didi ❤️</p>
+        <p>10 bows pakdo Didi ❤️</p>
         <div id="bowBox"></div>
         <h3 id="bowScore">Bows: 0/10</h3>
         `;
 
+
         let score = 0;
-        let bowBox = document.getElementById("bowBox");
+        let box = document.getElementById("bowBox");
 
 
         let timer = setInterval(()=>{
@@ -99,12 +65,6 @@ function startGame(game){
             let bow = document.createElement("button");
 
             bow.innerHTML="🎀";
-
-            bow.style.width="60px";
-            bow.style.height="60px";
-            bow.style.margin="5px";
-            bow.style.fontSize="30px";
-            bow.style.background="#ffb6d9";
 
 
             bow.onclick=function(){
@@ -122,10 +82,7 @@ function startGame(game){
                     clearInterval(timer);
 
                     document.getElementById("gameArea").innerHTML=
-                    `
-                    <h2>🎀 Great Didi 🎀</h2>
-                    <p>Bow Game Complete ❤️</p>
-                    `;
+                    "🎉 Game 2 Complete 🎀";
 
                     unlockGame(3);
 
@@ -134,15 +91,25 @@ function startGame(game){
             };
 
 
-            bowBox.appendChild(bow);
-
-
-            setTimeout(()=>{
-                bow.remove();
-            },2500);
+            box.appendChild(bow);
 
 
         },900);
+
+    }
+
+}
+
+
+
+function unlockGame(num){
+
+    let btn=document.getElementById("game"+num);
+
+    if(btn){
+
+        btn.disabled=false;
+        btn.innerHTML="🔓 Game "+num;
 
     }
 
